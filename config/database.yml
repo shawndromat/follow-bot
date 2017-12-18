@@ -14,4 +14,4 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV["VCAP_SERVICES"]["elephantsql"][0]["credentials"]["uri"] %>
+  url: <%= ENV["VCAP_SERVICES"]["elephantsql"] %>
