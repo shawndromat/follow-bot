@@ -4,6 +4,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
+      access_token = request.env['omniauth.auth']['extra']['access_token']
+      session[:token] = access_token.token
+      session[:secret] = access_token.secret
       sign_in_and_redirect @user, event: :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, kind: "Twitter") if is_navigational_format?
     else
